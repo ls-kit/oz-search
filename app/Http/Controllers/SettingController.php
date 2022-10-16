@@ -23,6 +23,7 @@ class SettingController extends Controller
         );
         $activeThemeId = $activeTheme[0]['id'];
         $snippet = Storage::disk('local')->get('Laravel 8.php');
+        // $snippet = "af adfs ghadshf s";
         //Snippet to pass to rest api request
         $data = array(
             'asset'=> [
@@ -42,6 +43,8 @@ class SettingController extends Controller
     public function destroy()
     {
         $activeTheme = Setting::where('shop_id', Auth::user()->name)->first();
+        // dd(Auth::user()->name);
+
         $activeThemeId = $activeTheme->shop_active_theme_id;
 
         $data = array(

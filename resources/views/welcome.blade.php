@@ -31,7 +31,7 @@
         // THEME FUNCTIONS
         function themeCreate() {
             axios
-                .post('theme/create')
+                .post('themes/create')
                 .then(function(response) {
                     console.log(response);
                 })

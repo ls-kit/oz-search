@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ScriptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,28 @@ use App\Http\Controllers\SettingController;
 | Middleware options can be located in `app/Http/Kernel.php`
 |
 */
+
+// SHOPIFY ROUTES
+Route::get('/shopify-login',function(){
+    return view('shopify.login');
+})->name('shopify.login');
+
+Route::middleware(['verify.shopify'])->group(function () {
+    Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
+
+    // THEME ROUTES
+    Route::prefix('themes')->group(function () {
+        Route::post('create', [SettingController::class, 'create']);
+        Route::get('destroy', [SettingController::class, 'destroy']);
+    });
+
+    // SCRIPT ROUTES
+    Route::prefix('scripts')->group(function () {
+        Route::post('create', [ScriptController::class, 'create']);
+        Route::post('update', [ScriptController::class, 'update']);
+        Route::get('destroy', [ScriptController::class, 'destroy']);
+    });
+});
 
 // Homepage Route
 Route::group(['middleware' => ['web', 'checkblocked']], function () {
@@ -139,24 +162,5 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
 Route::redirect('/php', '/phpinfo', 301);
 
-// SHOPIFY ROUTES
-Route::get('/shopify-login',function(){
-    return view('shopify.login');
-})->name('shopify.login');
 
-Route::middleware(['verify.shopify'])->group(function () {
-    Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
-    // THEME ROUTES
-    Route::prefix('themes')->group(function () {
-        Route::post('create', [SettingController::class, 'create']);
-        Route::get('destroy', [SettingController::class, 'destroy']);
-    });
-
-    // SCRIPT ROUTES
-    Route::prefix('scripts')->group(function () {
-        Route::post('create', [ScriptController::class, 'create']);
-        Route::post('update', [ScriptController::class, 'update']);
-        Route::get('destroy', [ScriptController::class, 'destroy']);
-    });
-});
