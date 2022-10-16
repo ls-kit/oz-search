@@ -144,10 +144,19 @@ Route::get('/shopify-login',function(){
     return view('shopify.login');
 })->name('shopify.login');
 
-Route::group(['middleware' => ['verify.shopify']],  function() {
+Route::middleware(['verify.shopify'])->group(function () {
     Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
     // THEME ROUTES
-    Route::post('/theme/create', [SettingController::class, 'create']);
-    Route::any('/theme/delete', [SettingController::class, 'destroy']);
+    Route::prefix('themes')->group(function () {
+        Route::post('create', [SettingController::class, 'create']);
+        Route::get('destroy', [SettingController::class, 'destroy']);
+    });
+
+    // SCRIPT ROUTES
+    Route::prefix('scripts')->group(function () {
+        Route::post('create', [ScriptController::class, 'create']);
+        Route::post('update', [ScriptController::class, 'update']);
+        Route::get('destroy', [ScriptController::class, 'destroy']);
+    });
 });
