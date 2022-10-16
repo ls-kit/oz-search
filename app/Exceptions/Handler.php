@@ -81,6 +81,11 @@ class Handler extends ExceptionHandler
             abort(403);
         }
 
+        // Added this custom exception and set login view 
+        if($exception instanceof \Osiset\ShopifyApp\Exceptions\MissingShopDomainException){
+            return response()->view('shopify.login', [],500);
+        }
+        
         return parent::render($request, $exception);
     }
 

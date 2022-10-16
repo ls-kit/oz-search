@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 // Homepage Route
 Route::group(['middleware' => ['web', 'checkblocked']], function () {
-    Route::get('/', 'App\Http\Controllers\WelcomeController@login')->name('home');
+    // Route::get('/', 'App\Http\Controllers\WelcomeController@login')->name('home');
     Route::get('/prices', 'App\Http\Controllers\Frontend\HomeController@prices')->name('prices');
     Route::get('/sorry', 'App\Http\Controllers\Frontend\HomeController@sorry')->name('sorry');
     Route::get('/terms', 'App\Http\Controllers\TermsController@terms')->name('terms');
@@ -135,3 +135,14 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 });
 
 Route::redirect('/php', '/phpinfo', 301);
+
+// SHOPIFY ROUTES
+Route::get('/shopify-login',function(){
+    return view('shopify.login');
+})->name('shopify.login');
+
+Route::group(['middleware' => ['verify.shopify']],  function() {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
+});
