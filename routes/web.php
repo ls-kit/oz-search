@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\SettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -142,7 +145,8 @@ Route::get('/shopify-login',function(){
 })->name('shopify.login');
 
 Route::group(['middleware' => ['verify.shopify']],  function() {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
+
+    Route::post('configure-theme', [SettingController::class, 'configureTheme']);
+    Route::resource('settings', SettingController::class);
 });
