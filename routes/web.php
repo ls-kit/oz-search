@@ -147,6 +147,7 @@ Route::get('/shopify-login',function(){
 Route::group(['middleware' => ['verify.shopify']],  function() {
     Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
-    Route::post('configure-theme', [SettingController::class, 'configureTheme']);
-    Route::resource('settings', SettingController::class);
+    // THEME ROUTES
+    Route::post('/theme/create', [SettingController::class, 'create']);
+    Route::any('/theme/delete', [SettingController::class, 'destroy']);
 });
