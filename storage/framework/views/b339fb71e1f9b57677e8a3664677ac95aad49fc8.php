@@ -86,7 +86,7 @@
             color: #5479f6;
         }
 
-        @media screen and (min-width: 992px) {
+        @media  screen and (min-width: 992px) {
             .login-section .login-container .login-form .inputBox {
                 width: 100%;
             }
@@ -99,7 +99,7 @@
         <div class="login-section">
             <div class="login-container">
                 <p class="login-title">Our Sapp</p>
-                <form action="{{ url('/authenticate') }}" method="GET" class="login-form">
+                <form action="<?php echo e(url('/authenticate')); ?>" method="GET" class="login-form">
                     <div class="inputBox">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail input-icon"
                             width="20" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="#5479F6"
@@ -122,3 +122,4 @@
 </body>
 
 </html>
+<?php /**PATH C:\laragon\www\sumal\resources\views/shopify/login.blade.php ENDPATH**/ ?>

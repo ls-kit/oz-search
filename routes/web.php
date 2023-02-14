@@ -24,7 +24,7 @@ Route::get('/shopify-login',function(){
     return view('shopify.login');
 })->name('shopify.login');
 
-Route::middleware(['verify.shopify'])->group(function () {
+Route::middleware(['verify.shopify', 'billable'])->group(function () {
     Route::get('/', [WelcomeController::class, 'welcome'])->name('home');
 
     // THEME ROUTES

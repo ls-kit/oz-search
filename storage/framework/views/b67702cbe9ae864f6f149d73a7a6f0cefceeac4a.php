@@ -1,6 +1,4 @@
-@extends('shopify-app::layouts.default')
-
-@section('styles')
+<?php $__env->startSection('styles'); ?>
     <style>
         .login-section input:focus {
             outline: none;
@@ -81,31 +79,17 @@
             color: #5479f6;
         }
 
-        @media screen and (min-width: 992px) {
+        @media  screen and (min-width: 992px) {
             .login-section .login-container .login-form .inputBox {
                 width: 100%;
             }
         }
     </style>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- You are: (shop domain name) -->
-    {{-- <p>You are: {{ $shopDomain ?? Auth::user()->name }}</p>
-
-    <div>
-        @if ($setting == null)
-            <button onclick="themeCreate()">Create Theme File</button>
-        @else
-            <button onclick="themeDelete()">Delete Theme File</button>
-        @endif
-    </div><br>
-
-    <div>
-        <button onclick="scriptCreate()">Create Script File</button>
-        <button onclick="scriptUpdate()">Update Script File</button>
-        <button onclick="scriptDelete()">Delete Script File</button>
-    </div><br> --}}
+    
 
     <div class="login-section">
         <div class="login-container">
@@ -120,7 +104,7 @@
                         <polyline points="3 7 12 13 21 7" />
                     </svg>
                     <input class="loginInput" type="email" name="email" id=""
-                        value="{{ Auth::user()->email }}" readonly/>
+                        value="<?php echo e(Auth::user()->email); ?>" readonly/>
                 </div>
 
                 <p class="login-title">Please set a password for first time</p>
@@ -141,13 +125,13 @@
                     <button class="login-bt">Login To Newsletter</button>
                 </div>
             </form>
-            <a class="upgrade" href="{{ route('billing', ['plan' => 3, 'shop' => Auth::user()->name]) }}">Upgrade</a>
+            <a class="upgrade" href="<?php echo e(route('billing', ['plan' => 3, 'shop' => Auth::user()->name])); ?>">Upgrade</a>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('scripts')
-    @parent
+<?php $__env->startSection('scripts'); ?>
+    <?php echo \Illuminate\View\Factory::parentPlaceholder('scripts'); ?>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -212,4 +196,6 @@
                 });
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('shopify-app::layouts.default', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\sumal\resources\views/welcome.blade.php ENDPATH**/ ?>
