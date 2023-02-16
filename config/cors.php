@@ -19,7 +19,12 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://sumal.test',
+        'https://sumal.test',
+        'http://tes-store-ns.myshopify.com',
+        'https://tes-store-ns.myshopify.com',
+    ],
 
     'allowed_origins_patterns' => [],
 
